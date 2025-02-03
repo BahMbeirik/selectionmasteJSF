@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Accueil Candidat</title>
+    <h:outputStylesheet name="css/styles.css" />
+</h:head>
+<h:body>
+
+    <h:form >
+        <ui:include src="navbarC.xhtml" />
+        <p:messages id="messages" autoUpdate="true" showDetail="true" closable="true" />
+        <div class="form-container">
+            <p:panel header="Informations Personnelles" style="margin-bottom:20px;">
+                
+                    <div >
+                        <p:outputLabel for="nom" value="Nom :" style="margin-right : 83px;"/>
+                        <p:inputText id="nom" value="#{candidatBean.candidat.nom}" required="true" style="width: 400px;"/>
+
+                        <p:outputLabel for="prenom" value="Prénom :" style="margin-left : 50px;"/>
+                        <p:inputText id="prenom" value="#{candidatBean.candidat.prenom}" required="true" style="width: 400px; margin-left : 90px;"/>
+                    </div>
+                    <div style="margin-top : 20px;">
+                        <p:outputLabel for="anneeBac" value="Année du Bac :" style="margin-right : 20px;"/>
+                        <p:inputText id="anneeBac" value="#{candidatBean.candidat.anneeBac}" required="true" style="width: 400px;"/>
+
+                        <p:outputLabel for="anneeLicence" value="Année de Licence :" style="margin-left : 50px"/>
+                        <p:inputText id="anneeLicence" value="#{candidatBean.candidat.anneeLicence}" required="true" style="width: 400px; margin-left : 20px"/>
+                    </div>
+               
+            </p:panel>
+
+            <p:panel header="Établissement" style="margin-bottom:20px;">
+                <p:outputLabel for="etablissement" value="Établissement :" style="margin-right : 20px;"/>
+	                <p:selectOneMenu id="etablissement" value="#{candidatBean.candidat.etablissement}" required="true" style="width: 1100px;" converter="etablissementConverter">
+					    <f:selectItem itemLabel="Sélectionnez un établissement" itemValue="#{null}" />
+					    <f:selectItems value="#{candidatBean.etablissements}" var="etablissement"
+					                   itemLabel="#{etablissement.nom}" itemValue="#{etablissement}" />
+					</p:selectOneMenu>
+
+            </p:panel>
+
+            <p:panel header="Parcours Choisis" style="margin-bottom:20px;">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="parcoursChoisis" value="Parcours :" />
+                    <p:selectManyMenu id="parcoursChoisis" value="#{candidatBean.parcoursChoisis}" required="true" style="width: 1150px;">
+                        <f:selectItem itemLabel="Sélectionnez un parcours" itemValue="" />
+                        <f:selectItems value="#{candidatBean.parcoursDisponibles}" var="parcours"
+                                       itemLabel="#{parcours.nom}" itemValue="#{parcours}" />
+                    </p:selectManyMenu>
+                </p:panelGrid>
+            </p:panel>
+
+            <p:panel header="Diplômes" style="margin-bottom:20px; ">
+                <div style="width: 100%; display:flex; justify-content: space-between;">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="diplomeBac" value="Diplôme du Bac :" />
+                        <p:fileUpload id="diplomeBac" value="#{candidatBean.diplomeBacFile}" mode="simple" style="width: 350px;"
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+                                     
+
+                        <p:outputLabel for="moyenneBac" value="Moyenne du Bac :" />
+                        <p:inputText id="moyenneBac" value="#{candidatBean.candidat.moyenneBac}" required="true" style="width: 350px;" />
+                    </p:panelGrid>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="diplomeLicence" value="Diplôme de Licence :" />
+                        <p:fileUpload id="diplomeLicence" value="#{candidatBean.diplomeLicenceFile}" mode="simple"  style="width: 350px;"
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+
+                        <p:outputLabel for="moyenneLicence" value="Moyenne de Licence :" />
+                        <p:inputText id="moyenneLicence" value="#{candidatBean.candidat.moyenneLicence}" required="true" style="width: 350px;"/>
+                    </p:panelGrid>
+                </div>
+            </p:panel>
+
+            <p:panel header="Relevés de Notes" style="margin-bottom:20px;">
+                <div style="width: 100%;">
+                	<dvi style="width: 100%; margin-bottom : 20px;  display:flex; justify-content: space-between;">
+                    <p:panelGrid columns="2" style="margin-right : 4px;">
+                        <p:outputLabel for="releve1" value="Relevé de Notes 1 :" />
+                        <p:fileUpload id="releve1" value="#{candidatBean.releve1File}" mode="simple" 
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+
+                        <p:outputLabel for="moyenneReleve1" value="Moyenne Relevé 1 :" />
+                        <p:inputText id="moyenneReleve1" value="#{candidatBean.candidat.moyenneReleve1}" required="true" />
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" style="margin-right : 4px;">
+                        <p:outputLabel for="releve2" value="Relevé de Notes 2 :" />
+                        <p:fileUpload id="releve2" value="#{candidatBean.releve2File}" mode="simple" 
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+
+                        <p:outputLabel for="moyenneReleve2" value="Moyenne Relevé 2 :" />
+                        <p:inputText id="moyenneReleve2" value="#{candidatBean.candidat.moyenneReleve2}" required="true" />
+                    </p:panelGrid>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="releve3" value="Relevé de Notes 3 :" />
+                        <p:fileUpload id="releve3" value="#{candidatBean.releve3File}" mode="simple" 
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+
+                        <p:outputLabel for="moyenneReleve3" value="Moyenne Relevé 3 :" />
+                        <p:inputText id="moyenneReleve3" value="#{candidatBean.candidat.moyenneReleve3}" required="true" />
+                    </p:panelGrid>
+                    </dvi>
+                    <dvi style="width: 100%; margin-bottom : 20px;  display:flex; justify-content: space-between;">
+                    <p:panelGrid columns="2" style="margin-right : 4px;">
+                        <p:outputLabel for="releve4" value="Relevé de Notes 4 :" />
+                        <p:fileUpload id="releve4" value="#{candidatBean.releve4File}" mode="simple" 
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+
+                        <p:outputLabel for="moyenneReleve4" value="Moyenne Relevé 4 :" />
+                        <p:inputText id="moyenneReleve4" value="#{candidatBean.candidat.moyenneReleve4}" required="true" />
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" style="margin-right : 4px;">
+                        <p:outputLabel for="releve5" value="Relevé de Notes 5 :" />
+                        <p:fileUpload id="releve5" value="#{candidatBean.releve5File}" mode="simple" 
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+
+                        <p:outputLabel for="moyenneReleve5" value="Moyenne Relevé 5 :" />
+                        <p:inputText id="moyenneReleve5" value="#{candidatBean.candidat.moyenneReleve5}" required="true" />
+                    </p:panelGrid>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="releve6" value="Relevé de Notes 6 :" />
+                        <p:fileUpload id="releve6" value="#{candidatBean.releve6File}" mode="simple" 
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+
+                        <p:outputLabel for="moyenneReleve6" value="Moyenne Relevé 6 :" />
+                        <p:inputText id="moyenneReleve6" value="#{candidatBean.candidat.moyenneReleve6}" required="true" />
+                    </p:panelGrid>
+                    </dvi>
+                </div>
+            </p:panel>
+
+            <p:commandButton value="Soumettre" action="#{candidatBean.soumettre}" ajax="false" style="width: 100%;"/>
+        </div>
+    </h:form>
+</h:body>
+</html>

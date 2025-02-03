@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf17372419691370" configfile="/selectionMasterD/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="178" id="pf17372419872361" referenceLink="//@navigationRule.0/@fromViewId|" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/login.xhtml" x="122" y="562" id="pf17372918034340" referenceLink="//@navigationRule.0/@fromViewId|" path="/pages/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/*/home.xhtml" x="122" y="946" id="pf17372918034352" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="/pages/*/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="122" y="1330" id="pf17373074610683" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" outlinks="pf17373074610684" inlinks="pf17373074610684" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="admin/home.xhtml" x="122" y="1714" id="pf17373074610685" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf17373074610686" inlinks="pf17373074610686" path="/admin/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="jury/home.xhtml" x="122" y="2098" id="pf17373074610687" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" outlinks="pf17373074610688" inlinks="pf17373074610688" path="/jury/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="agent/home.xhtml" x="122" y="2482" id="pf17373074610689" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" outlinks="pf173730746106810" inlinks="pf173730746106810" path="/agent/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="candidat/home.xhtml" x="122" y="2866" id="pf173730746106811" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" outlinks="pf173730746106812" inlinks="pf173730746106812" path="/candidat/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="admin/users.xhtml" x="122" y="3250" id="pf173732054034913" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf173732054034914" inlinks="pf173732054034914" path="/admin/users.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="admin/parcours.xhtml" x="122" y="3634" id="pf17374700308130" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf17374700308131" inlinks="pf17374700308131" path="/admin/parcours.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="admin/etablissements.xhtml" x="122" y="4018" id="pf17374734347932" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf17374734347933" inlinks="pf17374734347933" path="/admin/etablissements.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="admin/navbar.xhtml" x="122" y="4402" id="pf17378448192390" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf17378448192391" inlinks="pf17378448192391" path="/admin/navbar.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="candidat/success.xhtml" x="122" y="4786" id="pf17378956326170" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" outlinks="pf17380834991360" inlinks="pf17380834991360" path="candidat/success.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="candidat/success.xhtml" x="122" y="5170" id="pf17378956326172" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" path="candidat/success.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="agent/candidats.xhtml" id="pf17381976318420" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" outlinks="pf17381976318421" inlinks="pf17381976318421" path="/agent/candidats.xhtml"/>
+  <links id="pf17373074610684" target="pf17373074610683" source="pf17373074610683" outcome="login">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf17373074610686" target="pf17373074610685" source="pf17373074610685" outcome="admin/home">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf17373074610688" target="pf17373074610687" source="pf17373074610687" outcome="jury/home">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf173730746106810" target="pf17373074610689" source="pf17373074610689" outcome="agent/home">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf173730746106812" target="pf173730746106811" source="pf173730746106811" outcome="candidat/home">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf173732054034914" target="pf173732054034913" source="pf173732054034913" outcome="admin/users">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf17374700308131" target="pf17374700308130" source="pf17374700308130" outcome="admin/parcours">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf17374734347933" target="pf17374734347932" source="pf17374734347932" outcome="admin/etablissements">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf17378448192391" target="pf17378448192390" source="pf17378448192390" outcome="admin/navbar">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf17380834991360" target="pf17378956326170" source="pf17378956326170" outcome="candidat/success">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf17381976318421" target="pf17381976318420" source="pf17381976318420" outcome="agent/candidats"/>
+</pageflow:Pageflow>

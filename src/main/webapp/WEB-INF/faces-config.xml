@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                                  http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              version="2.0">
+
+   
+
+    <!-- Navigation Rules (Optional) -->
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/admin/home.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>admin/home</from-outcome>
+            <to-view-id>/admin/home.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/admin/users.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>admin/users</from-outcome>
+            <to-view-id>/admin/users.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/navbar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>admin/navbar</from-outcome>
+            <to-view-id>/admin/navbar.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/admin/parcours.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>admin/parcours</from-outcome>
+            <to-view-id>/admin/parcours.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/admin/etablissements.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>admin/etablissements</from-outcome>
+            <to-view-id>/admin/etablissements.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/jury/home.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>jury/home</from-outcome>
+            <to-view-id>/jury/home.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/agent/home.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>agent/home</from-outcome>
+            <to-view-id>/agent/home.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/agent/candidats.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>agent/candidats</from-outcome>
+            <to-view-id>/agent/candidats.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/candidat/home.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>candidat/home</from-outcome>
+            <to-view-id>/candidat/home.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+	
+	<navigation-rule>
+	    <from-view-id>candidat/success.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>candidat/success</from-outcome>
+	        <to-view-id>candidat/success.xhtml</to-view-id>
+	    </navigation-case>
+	</navigation-rule>
+	
+  
+
+</faces-config>

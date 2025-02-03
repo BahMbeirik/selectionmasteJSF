@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Accueil Jury</title>
+    <h:outputStylesheet name="css/styles.css" />
+</h:head>
+<h:body>
+    <h:form>
+        <ui:include src="navbarJ.xhtml" />
+
+        <p:commandButton value="Calculer et Trier par MC" 
+                         actionListener="#{candidatBean.calculerEtTrierParMC}" 
+                         update="@form" 
+                         icon="pi pi-sort-amount-down"
+                         style="margin-bottom:10px; background-color: #007ad9; color: white;" />
+
+        <h:panelGroup>
+            <ui:repeat value="#{candidatBean.candidatsParParcours()}" var="entry">
+                <p:panel header="#{entry.key}" style="margin-bottom: 20px;">
+                    <div style="overflow-x: auto; max-width: 100%;">
+
+                        <p:dataTable value="#{entry.value}" 
+                                     var="candidat" 
+                                     paginator="true" 
+                                     rows="5" 
+                                     paginatorPosition="bottom" 
+                                     style="width: 100%; ">
+
+                            <p:column headerText="Nom">
+                                <h:outputText value="#{candidat.nom}" />
+                            </p:column>
+                            <p:column headerText="Prénom">
+                                <h:outputText value="#{candidat.prenom}" />
+                            </p:column>
+                            <p:column headerText="Parcours">
+                                <h:outputText value="#{candidat.parcours}" />
+                            </p:column>
+                            <p:column headerText="Etablissement">
+                                <h:outputText value="#{candidat.etablissement.nom}" />
+                            </p:column>
+                            <p:column headerText="Bonnus">
+                                <h:outputText value="#{candidat.bonnus}" />
+                            </p:column>
+                            <p:column headerText="Malus">
+                                <h:outputText value="#{candidat.malus}" />
+                            </p:column>
+                            <p:column headerText="Moyenne Classement (MC)">
+                                <h:outputText value="#{candidat.moyenneClassement}">
+                                    <f:convertNumber pattern="##0.00" />
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </p:panel>
+            </ui:repeat>
+        </h:panelGroup>
+    </h:form>
+</h:body>
+</html>

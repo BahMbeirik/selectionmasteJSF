@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Accueil Jury</title>
+    <h:outputStylesheet name="css/styles.css" />
+</h:head>
+<h:body>
+
+    <h:form id="formModif">
+        <ui:include src="navbarA.xhtml" />
+        <p:panel header="Liste des Etudiants" style="margin-bottom:20px;">
+        <div style=" overflow-x: auto; max-width: 100%;">
+        <p:dataTable  value="#{candidatBean.obtenirTousLesCandidats()}" var="candidat" paginator="true" rows="5" paginatorPosition="bottom" style="width: 100%; min-width: 2200px;">
+            
+            <p:column headerText="Nom">
+                <h:outputText value="#{candidat.nom}" />
+            </p:column>
+            <p:column headerText="Prénom">
+                <h:outputText value="#{candidat.prenom}" />
+            </p:column>
+           <p:column headerText="Parcours">
+                <h:outputText value="#{candidat.parcours}" />
+            </p:column>
+            <p:column headerText="Etablissement">
+                <h:outputText value="#{candidat.etablissement.nom}" />
+            </p:column>
+            <p:column headerText="Année du Bac">
+                <h:outputText value="#{candidat.anneeBac}" />
+            </p:column>
+            <p:column headerText="Moyenne Bac">
+                <h:outputText value="#{candidat.moyenneBac}" />
+            </p:column>
+           <p:column headerText="Année Licence">
+                <h:outputText value="#{candidat.anneeLicence}" />
+            </p:column>
+           <p:column headerText="Moyenne Licence">
+                <h:outputText value="#{candidat.moyenneLicence}" />
+            </p:column>
+            <p:column headerText="Moyenne Releve 1">
+                <h:outputText value="#{candidat.moyenneReleve1}" />
+            </p:column>
+            <p:column headerText="Moyenne Releve 2">
+                <h:outputText value="#{candidat.moyenneReleve2}" />
+            </p:column>
+            <p:column headerText="Moyenne Releve 3">
+                <h:outputText value="#{candidat.moyenneReleve3}" />
+            </p:column>
+            <p:column headerText="Moyenne Releve 4">
+                <h:outputText value="#{candidat.moyenneReleve4}" />
+            </p:column>
+            <p:column headerText="Moyenne Releve 5">
+                <h:outputText value="#{candidat.moyenneReleve5}" />
+            </p:column>
+            <p:column headerText="Moyenne Releve 6">
+                <h:outputText value="#{candidat.moyenneReleve6}" />
+            </p:column>
+            <p:column headerText="Bonnus">
+                <h:outputText value="#{candidat.bonnus}" />
+            </p:column>
+            <p:column headerText="Malus">
+                <h:outputText value="#{candidat.malus}" />
+            </p:column>
+            <p:column headerText="Actions">
+                    <p:commandButton 
+                                     actionListener="#{candidatBean.chargerCandidat(candidat.id)}" process="@this" oncomplete="PF('modifierDialog').show()"
+                                     
+                                     update="@form" icon="pi pi-pencil" style="margin-right:4px;"/>
+                    <p:commandButton 
+                                     action="#{candidatBean.supprimerCandidat(candidat.id)}"
+                                     update="@form" icon="pi pi-trash" styleClass="logout-btn"/>
+                </p:column>
+            
+        </p:dataTable>
+        </div>
+        </p:panel>
+        
+        <!-- FORMULAIRE DE MODIFICATION DANS UNE MODALE -->
+<p:dialog widgetVar="modifierDialog" header="Modifier Candidat" modal="true" resizable="false">
+        
+    <h:panelGrid >
+    	
+    		<h:panelGrid columns="3">
+            	<h:panelGrid columns="2" cellpadding="5">
+	                <h:outputLabel for="nom" value="Nom :" />
+	                <p:inputText id="nom" value="#{candidatBean.candidat.nom}" required="true" style="width: 300px; margin-left:55px;"/>
+	 			</h:panelGrid>
+	 			<h:panelGrid columns="2" cellpadding="5">
+	                <h:outputLabel for="prenom" value="Prénom :" style=" margin-right:56px;"/>
+	                <p:inputText id="prenom" value="#{candidatBean.candidat.prenom}" required="true" style="width: 300px;"/>
+				  </h:panelGrid>
+				  <h:panelGrid columns="2" cellpadding="5">
+	                <h:outputLabel for="anneeLicence" value="Année Licence" style=" margin-right:18px;"/>
+	                <p:inputText id="anneeLicence" value="#{candidatBean.candidat.anneeLicence}" style="width: 300px;"/>
+				</h:panelGrid>
+			 </h:panelGrid>
+			 <h:panelGrid columns="3">
+            	<h:panelGrid columns="2" cellpadding="5">
+				  	<h:outputLabel for="anneeBac" value="Année du Bac" />
+	                <p:inputText id="anneeBac" value="#{candidatBean.candidat.anneeBac}" style="width: 300px;"/>
+				</h:panelGrid>
+ 				<h:panelGrid columns="2" cellpadding="5">
+	                <h:outputLabel for="moyenneBac" value="Moyenne Bac" style=" margin-right:30px;"/>
+	                <p:inputText id="moyenneBac" value="#{candidatBean.candidat.moyenneBac}" style="width: 300px;"/>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2" cellpadding="5">
+	                <h:outputLabel for="moyenneLicence" value="Moyenne Licence" />
+	                <p:inputText id="moyenneLicence" value="#{candidatBean.candidat.moyenneLicence}" style="width: 300px;"/>
+				 </h:panelGrid>
+                
+			 </h:panelGrid>
+			 
+			 
+			 
+			 </h:panelGrid>
+			
+                
+
+            <h:panelGrid columns="4" >
+           		<h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="moyenneReleve1" value="Moyenne Releve 1 :" />
+                <p:inputText id="moyenneReleve1" value="#{candidatBean.candidat.moyenneReleve1}" style="width: 300px;"/>
+                </h:panelGrid>
+ 				<h:panelGrid columns="2" cellpadding="5">
+	            <h:outputLabel for="moyenneReleve2" value="Moyenne Releve 2 :" />
+                <p:inputText id="moyenneReleve2" value="#{candidatBean.candidat.moyenneReleve2}" style="width: 300px;"/>
+                </h:panelGrid>
+ 				<h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="moyenneReleve3" value="Moyenne Releve 3 :" />
+                <p:inputText id="moyenneReleve3" value="#{candidatBean.candidat.moyenneReleve3}" style="width: 300px;"/>
+                 </h:panelGrid>
+			 </h:panelGrid>
+			 <h:panelGrid columns="4">
+            	<h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="moyenneReleve4" value="Moyenne Releve 4 :" />
+                <p:inputText id="moyenneReleve4" value="#{candidatBean.candidat.moyenneReleve4}" style="width: 300px;"/>
+                </h:panelGrid>
+ 				<h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="moyenneReleve5" value="Moyenne Releve 5 :" />
+                <p:inputText id="moyenneReleve5" value="#{candidatBean.candidat.moyenneReleve5}" style="width: 300px;"/>
+                </h:panelGrid>
+ 				<h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="moyenneReleve6" value="Moyenne Releve 6 :" />
+                <p:inputText id="moyenneReleve6" value="#{candidatBean.candidat.moyenneReleve6}" style="width: 300px;"/>
+                 </h:panelGrid>
+			 </h:panelGrid>
+			 
+			 <h:panelGrid columns="4">
+            	<h:panelGrid columns="2" cellpadding="5">
+	                <h:outputLabel for="bonnus" value="Bonnus :" />
+	                <p:inputText id="bonnus" value="#{candidatBean.candidat.bonnus}" style="width: 300px; margin-left:40px; "/>
+	            </h:panelGrid>
+ 				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="etablissement" value="Établissement :" style="margin-right : 20px;"/>
+				    <p:selectOneMenu id="etablissement" value="#{candidatBean.candidat.etablissement}" required="true" style="width: 300px;" converter="etablissementConverter">
+				        <f:selectItem itemLabel="Sélectionnez un établissement" itemValue="#{null}" />
+				        <f:selectItems value="#{candidatBean.etablissements}" var="etablissement"
+				                       itemLabel="#{etablissement.nom}" itemValue="#{etablissement}" />
+				    </p:selectOneMenu>
+             
+				</h:panelGrid>
+				
+            	<h:panelGrid columns="2" cellpadding="5">
+	                <h:outputLabel for="malus" value="Malus :" />
+	                <p:inputText id="malus" value="#{candidatBean.candidat.malus}" style="width: 300px; margin-left:40px; "/>
+	            </h:panelGrid>
+				
+			 </h:panelGrid>
+			 
+			 <p:commandButton 
+							    value="Modifier" 
+							    action="#{candidatBean.modifierCandidat}" 
+							    update="@form" 
+							    process="@form"  
+							    style="width: 150px;"
+							    icon="pi pi-check" />
+
+
+			<p:commandButton value="Annuler" 
+			                 actionListener="#{candidatBean.annulerModification}" 
+			                 update="@form"  style="width: 150px; margin-left:20px;"
+			                 icon="pi pi-times" 
+			                 styleClass="ui-button-secondary" />
+			                 
+		</p:dialog>	 
+    </h:form>
+</h:body>
+</html>

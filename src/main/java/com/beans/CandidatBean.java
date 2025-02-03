@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -124,42 +125,51 @@ public class CandidatBean {
 
             // Sauvegarder les fichiers
             if (diplomeBacFile != null) {
-                String fileName = "diplome_bac_" + System.currentTimeMillis() + ".pdf";
-                saveFile(diplomeBacFile, fileName);
-                candidat.setDiplomeBacPath(Paths.get(UPLOAD_DIR, fileName).toString());
+                System.out.println("🔹 Fichier reçu: " + diplomeBacFile.getFileName() + ", Taille: " + diplomeBacFile.getSize() + " bytes");
+                
+                if (diplomeBacFile.getSize() > 0) {
+                    String fileName = "diplome_bac_" + candidat.getNom().replaceAll("\\s+", "_")+ "_" + candidat.getPrenom().replaceAll("\\s+", "_") + ".pdf";
+                    saveFile(diplomeBacFile, fileName);
+                    candidat.setDiplomeBacPath(Paths.get(UPLOAD_DIR, fileName).toString());
+                } else {
+                    System.out.println("⚠️ Le fichier est vide !");
+                }
+            } else {
+                System.out.println("❌ Aucun fichier reçu !");
             }
-            if (diplomeLicenceFile != null) {
-                String fileName = "diplome_licence_" + System.currentTimeMillis() + ".pdf";
+            
+            if (diplomeLicenceFile != null && diplomeLicenceFile.getSize() > 0) {
+                String fileName = "diplome_licence_"+ candidat.getNom().replaceAll("\\s+", "_")+ "_" + candidat.getPrenom().replaceAll("\\s+", "_") + ".pdf";
                 saveFile(diplomeLicenceFile, fileName);
                 candidat.setDiplomeLicencePath(Paths.get(UPLOAD_DIR, fileName).toString());
             }
             if (releve1File != null) {
-                String fileName = "releve1_" + System.currentTimeMillis() + ".pdf";
+                String fileName = "releve1_" + candidat.getNom().replaceAll("\\s+", "_")+ "_" + candidat.getPrenom().replaceAll("\\s+", "_") + ".pdf";
                 saveFile(releve1File, fileName);
                 candidat.setReleve1Path(Paths.get(UPLOAD_DIR, fileName).toString());
             }
             if (releve2File != null) {
-                String fileName = "releve2_" + System.currentTimeMillis() + ".pdf";
+                String fileName = "releve2_" + candidat.getNom().replaceAll("\\s+", "_")+ "_" + candidat.getPrenom().replaceAll("\\s+", "_") + ".pdf";
                 saveFile(releve2File, fileName);
                 candidat.setReleve2Path(Paths.get(UPLOAD_DIR, fileName).toString());
             }
             if (releve3File != null) {
-                String fileName = "releve3_" + System.currentTimeMillis() + ".pdf";
+                String fileName = "releve3_" + candidat.getNom().replaceAll("\\s+", "_")+ "_" + candidat.getPrenom().replaceAll("\\s+", "_") + ".pdf";
                 saveFile(releve3File, fileName);
                 candidat.setReleve3Path(Paths.get(UPLOAD_DIR, fileName).toString());
             }
             if (releve4File != null) {
-                String fileName = "releve4_" + System.currentTimeMillis() + ".pdf";
+                String fileName = "releve4_" + candidat.getNom().replaceAll("\\s+", "_")+ "_" + candidat.getPrenom().replaceAll("\\s+", "_") + ".pdf";
                 saveFile(releve4File, fileName);
                 candidat.setReleve4Path(Paths.get(UPLOAD_DIR, fileName).toString());
             }
             if (releve5File != null) {
-                String fileName = "releve5_" + System.currentTimeMillis() + ".pdf";
+                String fileName = "releve5_" + candidat.getNom().replaceAll("\\s+", "_")+ "_" + candidat.getPrenom().replaceAll("\\s+", "_") + ".pdf";
                 saveFile(releve5File, fileName);
                 candidat.setReleve5Path(Paths.get(UPLOAD_DIR, fileName).toString());
             }
             if (releve6File != null) {
-                String fileName = "releve6_" + System.currentTimeMillis() + ".pdf";
+                String fileName = "releve6_" + candidat.getNom().replaceAll("\\s+", "_")+ "_" + candidat.getPrenom().replaceAll("\\s+", "_") + ".pdf";
                 saveFile(releve6File, fileName);
                 candidat.setReleve6Path(Paths.get(UPLOAD_DIR, fileName).toString());
             }
@@ -183,11 +193,11 @@ public class CandidatBean {
     // Méthode pour modifier un candidat
     public String modifierCandidat() {
         try {
-            candidatDAO.modifierCandidat(candidat); // تأكد أن هذه الدالة تعمل بشكل صحيح
+            candidatDAO.modifierCandidat(candidat); 
             candidat = new Candidat(); // Réinitialisation du candidat
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès", "Les informations du candidat ont été mises à jour avec succès."));
-            return null; // ابقَ في نفس الصفحة
+            return null; 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Une erreur est survenue lors de la mise à jour."));
@@ -221,12 +231,26 @@ public class CandidatBean {
 
     // Méthode pour sauvegarder un fichier
     private void saveFile(UploadedFile file, String fileName) throws IOException {
+        System.out.println("🔹 Commence l'enregistrement du fichier: " + fileName);
+        
         Path uploadPath = Paths.get(UPLOAD_DIR);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
+            System.out.println("✅ Dossier créé: " + UPLOAD_DIR);
         }
-        Files.copy(file.getInputStream(), uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+
+        Path filePath = uploadPath.resolve(fileName);
+        
+        try (InputStream input = file.getInputStream()) {
+            Files.copy(input, filePath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("✅ Fichier enregistré avec succès : " + filePath.toString());
+        } catch (IOException e) {
+            System.out.println("❌ Erreur lors de l'enregistrement du fichier: " + e.getMessage());
+            throw e;
+        }
     }
+
+
     
     public List<Candidat> getCandidats() {
         if (candidats == null) {
@@ -241,10 +265,9 @@ public class CandidatBean {
     }
     
     public List<Candidat> candidatsTrier() {
-        // استرجاع جميع المرشحين
         List<Candidat> candidats = candidatDAO.obtenirTousLesCandidats();
 
-        // ترتيب القائمة تنازليًا حسب moyenneClassement
+       
         candidats.sort(Comparator.comparingDouble(Candidat::getMoyenneClassement).reversed());
         
         return candidats;
@@ -279,10 +302,8 @@ public class CandidatBean {
     public Map<String, List<Candidat>> candidatsParParcours() {
         Map<String, List<Candidat>> candidatsParParcours = new HashMap<>();
         
-        // استرجاع جميع المرشحين
         List<Candidat> candidats = candidatDAO.obtenirTousLesCandidats();
         
-        // تجميع المرشحين حسب الجزء قبل الفاصلة من parcours
         for (Candidat c : candidats) {
             String parcours = c.getParcours();
             String parcoursAvantVirgule = parcours.split(",")[0]; 
@@ -292,13 +313,11 @@ public class CandidatBean {
             candidatsParParcours.get(parcoursAvantVirgule).add(c);
         }
         
-     // ترتيب كل مجموعة حسب moyenneClassement من الأعلى إلى الأدنى
         for (Map.Entry<String, List<Candidat>> entry : candidatsParParcours.entrySet()) {
             List<Candidat> sortedList = entry.getValue().stream()
-                .sorted(Comparator.comparingDouble(Candidat::getMoyenneClassement).reversed()) // ترتيب تنازلي
+                .sorted(Comparator.comparingDouble(Candidat::getMoyenneClassement).reversed()) 
                 .collect(Collectors.toList());
             
-            // تحديث القائمة المرتبة
             candidatsParParcours.put(entry.getKey(), sortedList);
         }
         

@@ -54,7 +54,12 @@
       <version>2.3.9</version>
     </dependency>
     
-    
+    <dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	    <version>1.4</version> <!-- أو أحدث إصدار متوافق مع PrimeFaces -->
+	</dependency>
+
 
     <!-- PrimeFaces -->
     <dependency>

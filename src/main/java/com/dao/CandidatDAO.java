@@ -16,7 +16,6 @@ public class CandidatDAO {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             
-            // حفظ المسارات المختارة
             for (Parcours parcours : candidat.getParcoursChoisis()) {
                 session.saveOrUpdate(parcours);
             }

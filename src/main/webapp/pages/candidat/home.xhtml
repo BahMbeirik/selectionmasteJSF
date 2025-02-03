@@ -10,7 +10,7 @@
 </h:head>
 <h:body>
 
-    <h:form >
+    <h:form enctype="multipart/form-data">
         <ui:include src="navbarC.xhtml" />
         <p:messages id="messages" autoUpdate="true" showDetail="true" closable="true" />
         <div class="form-container">
@@ -59,7 +59,8 @@
                     <p:panelGrid columns="2">
                         <p:outputLabel for="diplomeBac" value="Diplôme du Bac :" />
                         <p:fileUpload id="diplomeBac" value="#{candidatBean.diplomeBacFile}" mode="simple" style="width: 350px;"
-                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" 
+                                     oncomplete="PF('messages').render()"/>
                                      
 
                         <p:outputLabel for="moyenneBac" value="Moyenne du Bac :" />
@@ -68,7 +69,8 @@
                     <p:panelGrid columns="2">
                         <p:outputLabel for="diplomeLicence" value="Diplôme de Licence :" />
                         <p:fileUpload id="diplomeLicence" value="#{candidatBean.diplomeLicenceFile}" mode="simple"  style="width: 350px;"
-                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" 
+                                     oncomplete="PF('messages').render()"/>
 
                         <p:outputLabel for="moyenneLicence" value="Moyenne de Licence :" />
                         <p:inputText id="moyenneLicence" value="#{candidatBean.candidat.moyenneLicence}" required="true" style="width: 350px;"/>
@@ -82,7 +84,8 @@
                     <p:panelGrid columns="2" style="margin-right : 4px;">
                         <p:outputLabel for="releve1" value="Relevé de Notes 1 :" />
                         <p:fileUpload id="releve1" value="#{candidatBean.releve1File}" mode="simple" 
-                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" 
+                                     oncomplete="PF('messages').render()"/>
 
                         <p:outputLabel for="moyenneReleve1" value="Moyenne Relevé 1 :" />
                         <p:inputText id="moyenneReleve1" value="#{candidatBean.candidat.moyenneReleve1}" required="true" />
@@ -90,7 +93,8 @@
                     <p:panelGrid columns="2" style="margin-right : 4px;">
                         <p:outputLabel for="releve2" value="Relevé de Notes 2 :" />
                         <p:fileUpload id="releve2" value="#{candidatBean.releve2File}" mode="simple" 
-                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" 
+                                     oncomplete="PF('messages').render()"/>
 
                         <p:outputLabel for="moyenneReleve2" value="Moyenne Relevé 2 :" />
                         <p:inputText id="moyenneReleve2" value="#{candidatBean.candidat.moyenneReleve2}" required="true" />
@@ -98,7 +102,8 @@
                     <p:panelGrid columns="2">
                         <p:outputLabel for="releve3" value="Relevé de Notes 3 :" />
                         <p:fileUpload id="releve3" value="#{candidatBean.releve3File}" mode="simple" 
-                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" 
+                                     oncomplete="PF('messages').render()"/>
 
                         <p:outputLabel for="moyenneReleve3" value="Moyenne Relevé 3 :" />
                         <p:inputText id="moyenneReleve3" value="#{candidatBean.candidat.moyenneReleve3}" required="true" />
@@ -124,7 +129,8 @@
                     <p:panelGrid columns="2">
                         <p:outputLabel for="releve6" value="Relevé de Notes 6 :" />
                         <p:fileUpload id="releve6" value="#{candidatBean.releve6File}" mode="simple" 
-                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" />
+                                     allowTypes="/(\.|\/)(pdf|doc|docx)$/" 
+                                     oncomplete="PF('messages').render()"/>
 
                         <p:outputLabel for="moyenneReleve6" value="Moyenne Relevé 6 :" />
                         <p:inputText id="moyenneReleve6" value="#{candidatBean.candidat.moyenneReleve6}" required="true" />

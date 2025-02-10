@@ -6,6 +6,8 @@ import com.dao.CandidatDAO;
 import com.models.Candidat;
 import com.models.Etablissement;
 import com.models.Parcours;
+import com.util.PdfExporterUtil;
+
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -30,6 +32,7 @@ import com.dao.ParcoursDAO;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+
 
 @ManagedBean(name = "candidatBean")
 @SessionScoped
@@ -264,14 +267,6 @@ public class CandidatBean {
         return candidatDAO.obtenirTousLesCandidats();
     }
     
-    public List<Candidat> candidatsTrier() {
-        List<Candidat> candidats = candidatDAO.obtenirTousLesCandidats();
-
-       
-        candidats.sort(Comparator.comparingDouble(Candidat::getMoyenneClassement).reversed());
-        
-        return candidats;
-    }
 
     
     public void annulerModification() {
@@ -300,30 +295,147 @@ public class CandidatBean {
     }
     
     public Map<String, List<Candidat>> candidatsParParcours() {
+        // Vérification des dépendances
+        if (candidatDAO == null) {
+            throw new IllegalStateException("candidatDAO n'est pas initialisé");
+        }
+        if (parcoursDAO == null) {
+            throw new IllegalStateException("parcoursDAO n'est pas initialisé");
+        }
+
+        // Initialisation des structures de données
         Map<String, List<Candidat>> candidatsParParcours = new HashMap<>();
-        
-        List<Candidat> candidats = candidatDAO.obtenirTousLesCandidats();
-        
-        for (Candidat c : candidats) {
-            String parcours = c.getParcours();
-            String parcoursAvantVirgule = parcours.split(",")[0]; 
-            if (!candidatsParParcours.containsKey(parcoursAvantVirgule)) {
-                candidatsParParcours.put(parcoursAvantVirgule, new ArrayList<>());
+        Map<String, Integer> quotas = new HashMap<>();
+
+        // Récupération des parcours et de leurs quotas
+        List<Parcours> parcoursList = parcoursDAO.findAll();
+        if (parcoursList == null) {
+            parcoursList = new ArrayList<>(); // Éviter NullPointerException
+        }
+
+        // Remplir la map des quotas
+        for (Parcours p : parcoursList) {
+            if (p != null && p.getNom() != null) {
+                quotas.put(p.getNom(), p.getQuota());
             }
-            candidatsParParcours.get(parcoursAvantVirgule).add(c);
         }
-        
-        for (Map.Entry<String, List<Candidat>> entry : candidatsParParcours.entrySet()) {
-            List<Candidat> sortedList = entry.getValue().stream()
-                .sorted(Comparator.comparingDouble(Candidat::getMoyenneClassement).reversed()) 
-                .collect(Collectors.toList());
-            
-            candidatsParParcours.put(entry.getKey(), sortedList);
+
+        // Récupération de tous les candidats
+        List<Candidat> candidats = candidatDAO.obtenirTousLesCandidats();
+        if (candidats == null) {
+            candidats = new ArrayList<>(); // Éviter NullPointerException
         }
-        
+
+        // Tri des candidats par moyenne de classement (décroissant)
+        candidats.sort(Comparator.comparingDouble(Candidat::getMoyenneClassement).reversed());
+
+        // Répartition des candidats dans les parcours
+        for (Candidat c : candidats) {
+            if (c == null || c.getParcours() == null || c.getParcours().trim().isEmpty()) {
+                continue; // Ignorer les candidats sans parcours valide
+            }
+
+            String[] parcoursPref = c.getParcours().split(",");
+            boolean placed = false;
+
+            // Essayer de placer le candidat dans son premier choix disponible
+            for (String pref : parcoursPref) {
+                if (pref == null || pref.trim().isEmpty()) {
+                    continue; // Ignorer les préférences vides
+                }
+
+                pref = pref.trim(); // Nettoyer les espaces
+
+                // Initialiser la liste des candidats pour ce parcours si nécessaire
+                if (!candidatsParParcours.containsKey(pref)) {
+                    candidatsParParcours.put(pref, new ArrayList<>());
+                }
+
+                // Vérifier si le quota est respecté
+                List<Candidat> candidatsDansParcours = candidatsParParcours.get(pref);
+                int quota = quotas.getOrDefault(pref, Integer.MAX_VALUE);
+
+                if (candidatsDansParcours.size() < quota) {
+                    candidatsDansParcours.add(c);
+                    placed = true;
+
+                    // Définir le statut du candidat
+                    int rang = candidatsDansParcours.size();
+                    if (rang <= quota) {
+                        c.setStatut("retenu");
+                    } else if (rang == quota + 1) {
+                        c.setStatut("en attente");
+                    } else {
+                        c.setStatut("non retenu");
+                    }
+
+                    break; // Candidat placé, passer au suivant
+                }
+            }
+
+            // Si le candidat n'a pas été placé, le mettre dans le parcours le plus proche du quota
+            if (!placed && parcoursPref.length > 0) {
+                String closestParcours = findClosestParcours(candidatsParParcours, quotas, parcoursPref);
+                if (closestParcours != null) {
+                    List<Candidat> candidatsDansParcours = candidatsParParcours.get(closestParcours);
+                    candidatsDansParcours.add(c);
+
+                    // Définir le statut du candidat
+                    int rang = candidatsDansParcours.size();
+                    int quota = quotas.getOrDefault(closestParcours, Integer.MAX_VALUE);
+                    if (rang <= quota) {
+                        c.setStatut("retenu");
+                    } else if (rang == quota + 1) {
+                        c.setStatut("en attente");
+                    } else {
+                        c.setStatut("non retenu");
+                    }
+                }
+            }
+        }
+
         return candidatsParParcours;
     }
 
+    /**
+     * Trouve le parcours le plus proche du quota pour un candidat.
+     */
+    private String findClosestParcours(Map<String, List<Candidat>> candidatsParParcours, Map<String, Integer> quotas, String[] parcoursPref) {
+        String closestParcours = null;
+        int minDifference = Integer.MAX_VALUE;
+
+        for (String pref : parcoursPref) {
+            if (pref == null || pref.trim().isEmpty()) {
+                continue; // Ignorer les préférences vides
+            }
+
+            pref = pref.trim(); // Nettoyer les espaces
+
+            // Vérifier si le parcours existe dans les quotas
+            if (!quotas.containsKey(pref)) {
+                continue; // Ignorer les parcours sans quota défini
+            }
+
+            // Calculer la différence entre le nombre de candidats et le quota
+            int size = candidatsParParcours.getOrDefault(pref, new ArrayList<>()).size();
+            int quota = quotas.get(pref);
+            int difference = size - quota;
+
+            // Trouver le parcours avec la différence la plus faible
+            if (difference < minDifference) {
+                minDifference = difference;
+                closestParcours = pref;
+            }
+        }
+
+        return closestParcours;
+    }
 
 
+   public void exportAllToPDF() {
+        Map<String, List<Candidat>> candidatsParParcours = candidatsParParcours();
+        PdfExporterUtil.exportAllToPDF(candidatsParParcours, "selection_master.pdf");
+    }
+   
+   
 }

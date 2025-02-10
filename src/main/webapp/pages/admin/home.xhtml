@@ -11,6 +11,39 @@
     <h:form>
     <ui:include src="navbar.xhtml" />
     
+    <div class="content">
+    <div class="candidat">
+	       <h4>Les utilisateurs</h4>
+		    <ui:repeat value="#{userManagementBean.users}" var="user" >
+		        <div class="t-row">
+		            <b class="e-cell">#{user.username}</b>
+		            <b class="e-cell">#{user.role}</b>
+		        </div>
+		    </ui:repeat>
+    
+    </div>
+    <div class="PE">
+	    <div class="pacours" >
+	       <h4>Les parcours</h4>
+		    <ui:repeat value="#{parcoursBean.listeParcours}" var="parcours">
+		        <div class="p-row">
+		            <b class="e-cell">#{parcours.nom}</b>
+		            <b class="e-cell">#{parcours.quota}</b>
+		        </div>
+		    </ui:repeat>
+    	
+    </div>
+    
+    <div class="tablisments">
+    <h4>Les etablisements</h4>
+		    <ui:repeat value="#{etablissementBean.etablissements}" var="etablissement" >
+		        <div class="e-row">
+		            <b class="e-cell">#{etablissement.nom}</b>
+		        </div>
+		    </ui:repeat>
+    </div>
+    </div>
+    </div>
     </h:form>
 </h:body>
 </html>

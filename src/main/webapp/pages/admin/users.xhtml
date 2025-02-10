@@ -18,7 +18,7 @@
                 <p:column headerText="Rôle"> #{user.role} 
                     <p:selectOneMenu value="#{user.role}" style="margin-left : 50px;">
                         <f:selectItems value="#{userManagementBean.roles}" var="role" itemValue="#{role}" itemLabel="#{role}" />
-                        <!-- إضافة حدث onchange لتحديث الدور -->
+                       
                         <p:ajax listener="#{userManagementBean.changeRole(user)}" update="@form" />
                     </p:selectOneMenu>
                 </p:column>

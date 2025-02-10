@@ -96,9 +96,19 @@ public class Candidat implements Serializable {
     @ManyToOne
     @JoinColumn(name = "etablissement_id", nullable = false)
     private Etablissement etablissement;
-
     
-	// Getters et Setters
+    @Column(name = "statut")
+    private String statut;
+
+    // Getters et Setters
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

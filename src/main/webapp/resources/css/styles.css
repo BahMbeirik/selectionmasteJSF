@@ -56,3 +56,90 @@
     border-color: #bd2130 !important;
 }
 
+.statut-accepte {
+    color: green;
+    font-weight: bold;
+}
+
+.statut-liste-attente {
+    color: orange;
+    font-weight: bold;
+}
+
+.statut-rejete {
+    color: red;
+    font-weight: bold;
+}
+.content{
+	display: flex;
+	justify-content: space-between;
+}
+.candidat{
+	 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+	 width: 75%;
+	 padding: 20px;
+}
+
+.PE{
+	 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+	 width: 23%;
+	 padding: 10px;
+}
+.pacours{
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+	padding: 10px;
+}
+
+.tablisments{
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+	padding: 10px;
+}
+
+
+.t-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(3, 0, 2, 0.3);
+    border-left: 4px solid royalblue;
+    border-right: 4px solid royalblue;
+    margin-bottom: 5px;
+    height: 40px;
+    
+}
+.p-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(3, 0, 2, 0.3);
+    border-left: 4px solid royalblue;
+    margin-bottom: 5px;
+    height: 40px;
+    
+}
+
+.e-row{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(3, 0, 2, 0.3);
+    border-right: 4px solid royalblue;
+    margin-bottom: 5px;
+    height: 40px;
+}
+
+
+.p-row:hover {
+    background-color: #f9f9f9;
+}
+
+.e-row:hover {
+    background-color: #f9f9f9;
+}
+
+.t-row:hover {
+    background-color: #f9f9f9;
+}

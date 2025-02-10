@@ -10,54 +10,71 @@
 </h:head>
 <h:body>
     <h:form>
-        <ui:include src="navbarJ.xhtml" />
+    <ui:include src="navbarJ.xhtml" />
+	<div >
+    <p:commandButton value="Calculer et Trier par MC" 
+                     actionListener="#{candidatBean.calculerEtTrierParMC}" 
+                     update="@form" 
+                     icon="pi pi-sort-amount-down"
+                     style="margin-bottom:10px; background-color: #007ad9; color: white;" />
 
-        <p:commandButton value="Calculer et Trier par MC" 
-                         actionListener="#{candidatBean.calculerEtTrierParMC}" 
-                         update="@form" 
-                         icon="pi pi-sort-amount-down"
-                         style="margin-bottom:10px; background-color: #007ad9; color: white;" />
+    <!-- Bouton d'exportation PDF -->
+    <p:commandButton value="Exporter en PDF" 
+                 action="#{candidatBean.exportAllToPDF}" 
+                 icon="pi pi-file-pdf" 
+                 style="margin-bottom:10px; background-color: #009000; color: white; float: right;" 
+                 ajax="false" />
+	</div>
+    <h:panelGroup>
+        <ui:repeat value="#{candidatBean.candidatsParParcours()}" var="entry">
+            <p:panel header="#{entry.key}" style="margin-bottom: 20px;">
+                <div style="overflow-x: auto; max-width: 100%;">
 
-        <h:panelGroup>
-            <ui:repeat value="#{candidatBean.candidatsParParcours()}" var="entry">
-                <p:panel header="#{entry.key}" style="margin-bottom: 20px;">
-                    <div style="overflow-x: auto; max-width: 100%;">
+                    <!-- Ajouter un ID au dataTable pour cibler l'exportation -->
+                    <p:dataTable id="dataTable" 
+                                 value="#{entry.value}" 
+                                 var="candidat" 
+                                 paginator="true" 
+                                 rows="5" 
+                                 paginatorPosition="bottom" 
+                                 style="width: 100%;">
 
-                        <p:dataTable value="#{entry.value}" 
-                                     var="candidat" 
-                                     paginator="true" 
-                                     rows="5" 
-                                     paginatorPosition="bottom" 
-                                     style="width: 100%; ">
+                        <p:column headerText="Nom">
+                            <h:outputText value="#{candidat.nom}" />
+                        </p:column>
+                        <p:column headerText="Prénom">
+                            <h:outputText value="#{candidat.prenom}" />
+                        </p:column>
+                        <p:column headerText="Parcours">
+                            <h:outputText value="#{candidat.parcours}" />
+                        </p:column>
+                        <p:column headerText="Établissement">
+                            <h:outputText value="#{candidat.etablissement.nom}" />
+                        </p:column>
+                        <p:column headerText="Bonnus">
+                            <h:outputText value="#{candidat.bonnus}" />
+                        </p:column>
+                        <p:column headerText="Malus">
+                            <h:outputText value="#{candidat.malus}" />
+                        </p:column>
+                        <p:column headerText="Moyenne Classement (MC)">
+                            <h:outputText value="#{candidat.moyenneClassement}">
+                                <f:convertNumber pattern="##0.00" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Statut">
+                            <h:outputText value="#{candidat.statut}" 
+                                          styleClass="#{candidat.statut eq 'retenu' ? 'statut-accepte' : 
+                                                       candidat.statut eq 'en attente' ? 'statut-liste-attente' : 
+                                                       'statut-rejete'}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </p:panel>
+        </ui:repeat>
+    </h:panelGroup>
+</h:form>
 
-                            <p:column headerText="Nom">
-                                <h:outputText value="#{candidat.nom}" />
-                            </p:column>
-                            <p:column headerText="Prénom">
-                                <h:outputText value="#{candidat.prenom}" />
-                            </p:column>
-                            <p:column headerText="Parcours">
-                                <h:outputText value="#{candidat.parcours}" />
-                            </p:column>
-                            <p:column headerText="Etablissement">
-                                <h:outputText value="#{candidat.etablissement.nom}" />
-                            </p:column>
-                            <p:column headerText="Bonnus">
-                                <h:outputText value="#{candidat.bonnus}" />
-                            </p:column>
-                            <p:column headerText="Malus">
-                                <h:outputText value="#{candidat.malus}" />
-                            </p:column>
-                            <p:column headerText="Moyenne Classement (MC)">
-                                <h:outputText value="#{candidat.moyenneClassement}">
-                                    <f:convertNumber pattern="##0.00" />
-                                </h:outputText>
-                            </p:column>
-                        </p:dataTable>
-                    </div>
-                </p:panel>
-            </ui:repeat>
-        </h:panelGroup>
-    </h:form>
+
 </h:body>
 </html>

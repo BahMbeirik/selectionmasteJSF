@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Gestion des Établissements</title>
+</h:head>
+<h:body>
+    <h:form id="formEtablissement">
+        <ui:include src="navbar.xhtml" />
+        <p:messages id="messages" autoUpdate="true" showDetail="true" closable="true" />
+
+        <p:panel header="Formulaire Établissement" style="margin-bottom:20px;">
+            <p:inputText id="nom" value="#{etablissementBean.etablissement.nom}"
+                         required="true" requiredMessage="Le nom est obligatoire."
+                         placeholder="Nom de l'établissement" style="width: 1000px;" />
+                         
+            <p:commandButton value="#{etablissementBean.enModeModification ? 'Modifier' : 'Ajouter'}"
+                             action="#{etablissementBean.ajouterEtablissement}"
+                             update="@form" icon="pi pi-save" style="margin-left:10px;" />
+            <p:commandButton value="Annuler" action="#{etablissementBean.reinitialiserFormulaire}"
+                             update="@form" rendered="#{etablissementBean.enModeModification}" 
+                             style="margin-left:10px;" />
+        </p:panel>
+		<p:panel  header="Les Établissements"
+                    		 style="margin-bottom:20px;">
+        <p:dataTable value="#{etablissementBean.etablissements}" var="etablissement" 
+                     style="width: 100%;" paginator="true" rows="10" paginatorPosition="bottom">
+            <p:column headerText="ID">
+                <h:outputText value="#{etablissement.id}" />
+            </p:column>
+            <p:column headerText="Nom">
+                <h:outputText value="#{etablissement.nom}" />
+            </p:column>
+            <p:column headerText="Actions">
+                <p:commandButton value="Modifier" action="#{etablissementBean.modifierEtablissement(etablissement)}"
+                                 update="@form" icon="pi pi-pencil" style="margin-right:10px;" process="@this" />
+                <p:commandButton value="Supprimer" action="#{etablissementBean.supprimerEtablissement(etablissement.id)}" styleClass="logout-btn"
+                                 update="@form" icon="pi pi-trash" />
+            </p:column>
+        </p:dataTable>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>

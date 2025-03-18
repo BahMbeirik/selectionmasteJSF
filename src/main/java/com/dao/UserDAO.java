@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserDAO {
     private SessionFactory sessionFactory;
@@ -35,6 +36,10 @@ public class UserDAO {
     
  // Sauvegarder un utilisateur
     public void save(User user) {
+        // Hacher le mot de passe avant de l'enregistrer
+        String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        user.setPassword(hashedPassword);
+
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(user);

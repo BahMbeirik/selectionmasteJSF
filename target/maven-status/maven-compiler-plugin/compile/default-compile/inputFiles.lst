@@ -1,0 +1,17 @@
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\beans\AuthBean.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\beans\CandidatBean.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\beans\EtablissementBean.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\beans\ParcoursBean.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\beans\UserManagementBean.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\converters\EtablissementConverter.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\dao\CandidatDAO.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\dao\EtablissementDAO.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\dao\ParcoursDAO.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\dao\UserDAO.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\models\Candidat.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\models\Etablissement.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\models\Parcours.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\models\Role.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\models\User.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\util\HibernateUtil.java
+C:\Users\HP\Desktop\selectionMasterD\src\main\java\com\util\PdfExporterUtil.java

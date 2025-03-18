@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.dao.UserDAO;
 import com.models.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 @ManagedBean(name = "authBean")
 @SessionScoped
@@ -51,8 +52,8 @@ public class AuthBean implements Serializable {
 
     // Login method
     public String login() {
-        User user = userDAO.findByUsername(username); // Assuming userDAO.findByUsername() works
-        if (user != null && user.getPassword().equals(password)) {
+        User user = userDAO.findByUsername(username); 
+        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             loggedInUser = user;
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage("Connexion réussie !"));
@@ -76,7 +77,6 @@ public class AuthBean implements Serializable {
             return "login"; // Return to login page
         }
     }
-
     // Déconnexion
     public String logout() {
         if (loggedInUser != null) {

@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import com.dao.UserDAO;
 import com.models.Role;
 import com.models.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 @ManagedBean(name = "userManagementBean")
 @SessionScoped
@@ -31,6 +32,10 @@ public class UserManagementBean implements Serializable {
     // Ajouter un utilisateur
     public void addUser() {
         try {
+            // Hacher le mot de passe avant de l'enregistrer
+            String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+            user.setPassword(hashedPassword);
+
             userDAO.save(user);
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Utilisateur ajouté avec succès.", null));

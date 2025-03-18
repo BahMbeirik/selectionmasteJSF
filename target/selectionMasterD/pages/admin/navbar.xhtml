@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Accueil Admin</title>
+    <h:outputStylesheet name="css/styles.css" />
+</h:head>
+<h:body>
+    
+        <div class="navbar">
+            <p:link value="Bienvenue, Administrateur !" outcome="home" styleClass="custom-link welcome-text" />
+            
+            <!-- Lien vers les gestions -->
+            <div class="link-container">
+	            <p:link value="Gestion des utilisateurs" outcome="users" styleClass="custom-link" />
+	            <p:link value="Gestion des parcours" outcome="parcours" styleClass="custom-link" />
+	            <p:link value="Gestion des Établissements" outcome="etablissements" styleClass="custom-link" />
+            </div>
+            
+            
+            
+            
+            <h:commandButton value="Se déconnecter"
+                             action="#{authBean.logout}"
+                             update="@form"
+                             immediate="true"
+                             styleClass="logout-btn" />
+        </div>
+    
+</h:body>
+</html>

@@ -19,12 +19,36 @@ public class Candidat implements Serializable {
 
     @Column(name = "prenom", nullable = false)
     private String prenom;
+    
+    @Column(name = "filier", nullable = false)
+    private String filier;
+    
+    @Column(name = "etat_validation1", nullable = false)
+    private String etat_validation1;
+    
+    @Column(name = "etat_validation2", nullable = false)
+    private String etat_validation2;
+    
+    @Column(name = "etat_validation3", nullable = false)
+    private String etat_validation3;
+    
+    @Column(name = "etat_validation4", nullable = false)
+    private String etat_validation4;
+    
+    @Column(name = "etat_validation5", nullable = false)
+    private String etat_validation5;
+    
+    @Column(name = "etat_validation6", nullable = false)
+    private String etat_validation6;
+    
+    @Column(name = "numero_I_ou_bac", nullable = false)
+    private String numero_I_ou_bac;
 
     @Column(name = "annee_bac", nullable = false)
-    private String anneeBac;
+    private int anneeBac;
 
-    @Column(name = "annee_licence", nullable = false)
-    private String anneeLicence;
+	@Column(name = "annee_licence", nullable = false)
+    private int anneeLicence;
 
     @Column(name = "moyenne_bac", nullable = false)
     private String moyenneBac;
@@ -43,37 +67,37 @@ public class Candidat implements Serializable {
     @Column(name = "releve1_path")
     private String releve1Path;
 
-    @Column(name = "moyenneReleve1")
+    @Column(name = "moyenne_releve1")
     private double moyenneReleve1;
 
     @Column(name = "releve2_path")
     private String releve2Path;
 
-    @Column(name = "moyenneReleve2")
+    @Column(name = "moyenne_releve2")
     private double moyenneReleve2;
 
     @Column(name = "releve3_path")
     private String releve3Path;
 
-    @Column(name = "moyenneReleve3")
+    @Column(name = "moyenne_releve3")
     private double moyenneReleve3;
 
     @Column(name = "releve4_path")
     private String releve4Path;
 
-    @Column(name = "moyenneReleve4")
+    @Column(name = "moyenne_releve4")
     private double moyenneReleve4;
 
     @Column(name = "releve5_path")
     private String releve5Path;
 
-    @Column(name = "moyenneReleve5")
+    @Column(name = "moyenne_releve5")
     private double moyenneReleve5;
 
     @Column(name = "releve6_path")
     private String releve6Path;
 
-    @Column(name = "moyenneReleve6")
+    @Column(name = "moyenne_releve6")
     private double moyenneReleve6;
     
 	@Column(name = "bonnus", nullable = true)
@@ -82,7 +106,10 @@ public class Candidat implements Serializable {
 	@Column(name = "malus", nullable = true)
     private double malus;
 	
-	@Column(name = "moyenneClassement", nullable = true)
+	@Column(name = "penalite", nullable = true)
+    private double penalite;
+	
+	@Column(name = "moyenne_classement", nullable = true)
 	private double moyenneClassement;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -100,7 +127,58 @@ public class Candidat implements Serializable {
     @Column(name = "statut")
     private String statut;
 
+    
+    
     // Getters et Setters
+    
+    public String getEtat_validation1() {
+		return etat_validation1;
+	}
+
+	public void setEtat_validation1(String etat_validation1) {
+		this.etat_validation1 = etat_validation1;
+	}
+
+	public String getEtat_validation2() {
+		return etat_validation2;
+	}
+
+	public void setEtat_validation2(String etat_validation2) {
+		this.etat_validation2 = etat_validation2;
+	}
+
+	public String getEtat_validation3() {
+		return etat_validation3;
+	}
+
+	public void setEtat_validation3(String etat_validation3) {
+		this.etat_validation3 = etat_validation3;
+	}
+
+	public String getEtat_validation4() {
+		return etat_validation4;
+	}
+
+	public void setEtat_validation4(String etat_validation4) {
+		this.etat_validation4 = etat_validation4;
+	}
+
+	public String getEtat_validation5() {
+		return etat_validation5;
+	}
+
+	public void setEtat_validation5(String etat_validation5) {
+		this.etat_validation5 = etat_validation5;
+	}
+
+	public String getEtat_validation6() {
+		return etat_validation6;
+	}
+
+	public void setEtat_validation6(String etat_validation6) {
+		this.etat_validation6 = etat_validation6;
+	}
+	
     public String getStatut() {
         return statut;
     }
@@ -118,11 +196,11 @@ public class Candidat implements Serializable {
     public String getPrenom() { return prenom; }
     public void setPrenom(String prenom) { this.prenom = prenom; }
 
-    public String getAnneeBac() { return anneeBac; }
-    public void setAnneeBac(String anneeBac) { this.anneeBac = anneeBac; }
+    public int getAnneeBac() { return anneeBac; }
+    public void setAnneeBac(int anneeBac) { this.anneeBac = anneeBac; }
 
-    public String getAnneeLicence() { return anneeLicence; }
-    public void setAnneeLicence(String anneeLicence) { this.anneeLicence = anneeLicence; }
+    public int getAnneeLicence() { return anneeLicence; }
+    public void setAnneeLicence(int anneeLicence) { this.anneeLicence = anneeLicence; }
 
     public String getMoyenneBac() { return moyenneBac; }
     public void setMoyenneBac(String moyenneBac) { this.moyenneBac = moyenneBac; }
@@ -204,5 +282,31 @@ public class Candidat implements Serializable {
     public void setMoyenneClassement(double moyenneClassement) {
         this.moyenneClassement = moyenneClassement;
     }
+
+	public String getFilier() {
+		return filier;
+	}
+
+	public void setFilier(String filier) {
+		this.filier = filier;
+	}
+
+	public String getNumero_I_ou_bac() {
+		return numero_I_ou_bac;
+	}
+
+	public void setNumero_I_ou_bac(String numero_I_ou_bac) {
+		this.numero_I_ou_bac = numero_I_ou_bac;
+	}
+
+	public double getPenalite() {
+		return penalite;
+	}
+
+	public void setPenalite(double penalite) {
+		this.penalite = penalite;
+	}
+    
+    
 	
 }
